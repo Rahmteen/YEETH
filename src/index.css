@@ -2,8 +2,22 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #F8F9FA;
+
   }
 
-  #btc {
-    text-align: center;
+  #market {
+    text-align: left;
+    padding: 20px 160px 100px 160px
   }
+
+#head {
+  padding-top: 20px;
+  padding-left: 160px;
+  padding-bottom: 10px;
+}
+
+#search-buffer {
+  padding-left: 30px;
+}
+
