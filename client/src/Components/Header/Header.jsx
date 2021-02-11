@@ -15,7 +15,7 @@ class Header extends Component {
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                   <span className="navbar-toggler-icon"></span>
                 </button>
-                  <Link className='navbar-brand' to='/'><img height={75} width={135}src={'./img_src/yeeth logo.png'}></img></Link>
+                  <Link className='navbar-brand' to='/'><img height={75} width={135} src={'../img/yeeth.png'}></img></Link>
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
@@ -26,12 +26,12 @@ class Header extends Component {
                         </li>
                     </ul>
                     <form className="d-flex">
-                      <div id='search-buffer'>
+                      {/* <div id='search-buffer'>
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
-                      </div>
-                      <div id='search-buffer-button'>
+                      </div> */}
+                      {/* <div id='search-buffer-button'>
                         <button className="btn btn-outline-success" type="submit">Search</button>
-                      </div>
+                      </div> */}
                       </form>
                       <div id='mm'>
                         <li className="nav-item">

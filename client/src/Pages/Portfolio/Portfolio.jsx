@@ -12,8 +12,11 @@ class Portfolio extends Component {
             message: '',
             coins: [],
             coin: {id: 0},
+            quantity: 0,
         };
         this.timer = this.timer.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleAddCoin = this.handleAddCoin.bind(this);
       }
       timer() {
         fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc")
@@ -65,25 +68,38 @@ class Portfolio extends Component {
           coins: coins
         });
       }
+
+      updateQuantity(event) {
+        event.preventDefault();
+        this.setState({
+          quantity: event.target.value,
+        })
+        console.log(this.state.quantity)
+      }
       
       renderRows() {
         var context = this;
-        return  this.state.coins.map(function(o, i) {
+        return  this.state.coins.map(function(coin, i) {
                   return (
-                    <tr key={"item-" + i}>
-                      <td>
-                        <input
-                          type="text"
-                          value={o.name}
-                          onChange={context.handleCoinChange.bind(context, i)}
-                        />
+                    <tr id='input-row' key={"item-" + i}>
+                      <td >
+                        <button id='delete' className="btn btn-outline-danger" onClick={context.handleItemDeleted.bind(context, i)}>Delete</button>
                       </td>
                       <td>
-                        <button
-                          onClick={context.handleItemDeleted.bind(context, i)}
-                        >
-                          Delete
-                        </button>
+                        {/* <input type="text" value={o.name} onChange={context.handleCoinChange.bind(context, i)}/> */}
+                        <div id='inputs'>{coin.name}</div>
+                      </td>
+                      <td>
+                        <div id='inputs'>{coin.symbol}</div>
+                      </td>
+                      <td>
+                        <input id='quantity' type='text' onChange={context.updateQuantity.bind(context)}/>
+                      </td>
+                      <td>
+                        <div id='inputs'>{coin.current_price}</div>
+                      </td>
+                      <td>
+                        <div id='inputs'>{context.state.quantity*coin.current_price}</div>
                       </td>
                     </tr>
                   );
@@ -100,43 +116,43 @@ class Portfolio extends Component {
           .catch((err) => {
             console.log("Err: ", err);
           })
-        // fetch('/api/coin/create', {
-        //   method: 'post',
-        //   body: JSON.stringify(this.state.coins)})
-        // .then(function(response) {
-        //   return response.json();
-        // }).then(function(data) {
-        //   console.log(data);
-        // });
+        }
+      onClick(event) {
+        this.handleSubmit(event)
+        this.handleAddCoin(event)
       }
     
       render() {
         return (
-          <div>
-            <table className="">
-              <thead>
-                <tr>
-                  <th>
-                    Item
-                  </th>
-                  <th>
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.renderRows()}
-              </tbody>
-            </table>
-            <hr/>
-            <select
-              value={this.state.coin.id}
-              onChange={this.handleCoinChange.bind(this)}
-            ><option value="0">select coin</option>{this.state.urls.map(coin => (
-                <option key={coin.id} value={coin.id}>{coin.name}</option>
-            ))}</select>
-            <button onClick={this.handleAddCoin.bind(this)}>Add Item</button>
-            <button onClick={this.handleSubmit.bind(this)}>Add to port</button>
+            <div id='input-header'>
+            <div id='dropdown'>
+            <select className="form-select" value={this.state.coin.id} onChange={this.handleCoinChange.bind(this)}>
+                <option selected value="0">select coin
+                  </option>{this.state.urls.map((coin, i) => (
+                <option value={i} key={coin.id} value={coin.id}>{coin.name}
+                </option>))}</select>
+            </div>
+            <div id='addcoin'>
+            <button className="btn btn-outline-success" onClick={() => this.onClick()}>Add Coin</button>
+            </div>
+          <div id='table-header'>
+          <table className="table table-responsive-xxl">
+            <thead id='portfolio-header'>
+              <tr>
+                <th scope='col'>#</th>
+                <th scope='col'>Name</th>
+                <th scope='col'>Symbol</th>
+                <th scope='col'>Quantity</th>
+                <th scope='col'>Market Price (USD)</th>
+                <th scope='col'>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.renderRows()}
+            </tbody>
+          </table>
+          <hr/>
+          </div>
           </div>
         );
       }

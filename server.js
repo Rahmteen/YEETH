@@ -1,3 +1,5 @@
+// mongorestore --uri " mongodb+srv://ramtin:1234@cluster0.tj2u4.mongodb.net/"
+
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser")
@@ -13,12 +15,21 @@ const PORT = 3000;
 // MONGOOSE SERVER SETUP
 
 // MONGO_URI -> stored in .env for privacy/security,
-// const MONGO_URI = "MONGODB_LOCALHOST=mongodb://localhost:27017/yeeth"
+const MONGO_URI = "mongodb+srv://ramtin:1234@cluster0.tj2u4.mongodb.net"
 // Set up promises with mongoose
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 // terniary operator to check node env for local use or when deployed to a server:
-mongoose.connect(process.env.NODE_ENV == 'development' ? process.env.MONGODB_LOCALHOST : process.env.MONOG_MLAB, { useNewUrlParser: true, useUnifiedTopology: true })
+// mongoose.connect(process.env.NODE_ENV == 'development' ? process.env.MONGO_URI : process.env.MONOG_MLAB, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => console.log('Connected to Mongo DB.'))
+//   .catch(err => console.log(err));
+mongoose.connect(MONGO_URI, {
+  // options for the connect method to parse the URI
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  // sets the name of the DB that our collections are part of
+  dbName: 'coins'
+})
   .then(() => console.log('Connected to Mongo DB.'))
   .catch(err => console.log(err));
 
@@ -39,9 +50,11 @@ mongoose.connection.on('connected', function () {
 
 // CONDITIONAL ROUTES
 
-app.use(express.static('public')) // Static directory (makes public directory)
-app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(express.static(path.resolve(__dirname, 'public'))); // Static directory (makes public directory)
 
 // checking to see if we're in production mode to run the server publically
 if (process.env.NODE_ENV === "production") { 
@@ -57,7 +70,18 @@ app.use(routes)
     res.sendFile(path.resolve(__dirname + '/client/dist/index.html'));
 });
 
-// ROUTES/MIDDLEWARE
+app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
+
+// app.use((err, req, res, next) => {
+//   const defaultErr = {
+//     log: 'Express error handler caught unknown middleware error',
+//     status: 500,
+//     message: { err: 'An error occurred' },
+//   };
+//   const errorObj = Object.assign({}, defaultErr, err);
+//   console.log(errorObj.log);
+//   return res.status(errorObj.status).json(errorObj.message);
+// });
 
 
 

@@ -45,7 +45,6 @@ class Market extends Component {
                         <th>price (live)</th>
                         <th>24H high</th>
                         <th>24H low</th>
-                        <th>Add</th>
                     </tr>
                 </thead>
                 <tbody>{
@@ -57,7 +56,6 @@ class Market extends Component {
                         <td className='blink_me'>{'$' + coin.current_price}</td>
                         <td style={{ color: 'green' }}>{'$' + coin.high_24h}</td>
                         <td style={{ color: 'red' }}>{'$' + coin.low_24h}</td>
-                        <td><button onClick={() => addCoin(coin)}>test</button></td>
                     </tr>
                 ))}</tbody>
             </table>

@@ -13,4 +13,6 @@ const coinSchema = new Schema({
     }
 })
 
-module.exports = Coin = mongoose.model('coins', coinSchema)
+Coin = mongoose.model('coins', coinSchema)
+
+module.exports = Coin

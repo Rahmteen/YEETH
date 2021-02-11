@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { model } = require('mongoose');
-const coinModel = require('../models/coinModel.js');
+const db = require('mongoose').db;
+let MongoClient = require('mongodb').MongoClient;
+// const coinModel = require('../models/coinModel.js');
 const Coin = require("../models/coinModel.js");
 
 const yeethController = {};
 
 yeethController.postCoin = (req, res) => {
-    Coin.collection.insertMany(req.body)
+    Coin.collection.insertMany([req.body])
     .then(result => {
         console.log(result)
         res.json(result);
