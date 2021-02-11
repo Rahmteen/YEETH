@@ -1,37 +1,23 @@
 {
-  "name": "MUSE",
+  "name": "YEETH",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ]
-  },
+  "main": "server.js",
   "scripts": {
-    "start": "webpack serve --hot --open",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "create": "webpack"
+    "client-install": "cd client && npm install",
+    "client": "cd client && npm start",
+    "start": "concurrently \"nodemon server.js\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.13",
-    "@babel/preset-env": "^7.12.13",
-    "@babel/preset-react": "^7.12.13",
-    "babel-loader": "^8.2.2",
-    "css-loader": "^5.0.2",
-    "eslint-plugin-react": "^7.22.0",
-    "html-webpack-plugin": "^5.0.0",
-    "style-loader": "^2.0.0",
-    "webpack": "^5.21.2",
-    "webpack-cli": "^4.5.0",
-    "webpack-dev-server": "^3.11.2"
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.15",
+    "path": "^0.12.7"
   }
 }

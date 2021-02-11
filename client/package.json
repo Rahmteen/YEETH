@@ -1,0 +1,38 @@
+{
+  "name": "yeeth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "scripts": {
+    "start": "webpack serve --hot --open",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create": "webpack"
+  },
+  "keywords": [],
+  "author": "Ramtin Khoee",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.2",
+    "eslint-plugin-react": "^7.22.0",
+    "html-webpack-plugin": "^5.0.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
